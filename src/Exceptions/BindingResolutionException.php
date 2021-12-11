@@ -4,7 +4,7 @@
  *
  * @package   laravel-container
  * @copyright Copyright (c) 2021, Ashley Gibson
- * @license   GPL2+
+ * @license   MIT
  */
 
 namespace Ashleyfae\LaravelContainer\Exceptions;
