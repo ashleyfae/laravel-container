@@ -1,0 +1,15 @@
+{
+    "name": "ashleyfae/laravel-container",
+    "description": "Laravel service container.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ashleyfae\\LaravelContainer\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4"
+    }
+}

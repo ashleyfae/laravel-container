@@ -1,2 +1,1 @@
-# laravel-container
-Laravel service container.
+# Laravel Container
