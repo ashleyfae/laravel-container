@@ -9,6 +9,7 @@
 
 namespace Ashleyfae\LaravelContainer;
 
+use ArrayAccess;
 use Closure;
 use Ashleyfae\LaravelContainer\Exceptions\BindingResolutionException;
 use InvalidArgumentException;
@@ -18,7 +19,7 @@ use ReflectionException;
 use ReflectionParameter;
 use Exception;
 
-class Container implements \ArrayAccess
+class Container implements ArrayAccess
 {
 
     /**
@@ -26,56 +27,56 @@ class Container implements \ArrayAccess
      *
      * @var bool[]
      */
-    protected $resolved = [];
+    protected array $resolved = [];
 
     /**
      * The container's bindings.
      *
      * @var array[]
      */
-    protected $bindings = [];
+    protected array $bindings = [];
 
     /**
      * The container's method bindings.
      *
      * @var Closure[]
      */
-    protected $methodBindings = [];
+    protected array $methodBindings = [];
 
     /**
      * The container's shared instances.
      *
      * @var object[]
      */
-    protected $instances = [];
+    protected array $instances = [];
 
     /**
      * The registered type aliases.
      *
      * @var string[]
      */
-    protected $aliases = [];
+    protected array $aliases = [];
 
     /**
      * The registered aliases keyed by the abstract name.
      *
      * @var array[]
      */
-    protected $abstractAliases = [];
+    protected array $abstractAliases = [];
 
     /**
      * The extension closures for services.
      *
      * @var array[]
      */
-    protected $extenders = [];
+    protected array $extenders = [];
 
     /**
      * All of the registered tags.
      *
      * @var array[]
      */
-    protected $tags = [];
+    protected array $tags = [];
 
     /**
      * The stack of concretions currently being built.
@@ -1245,39 +1246,39 @@ class Container implements \ArrayAccess
     /**
      * Determine if a given offset exists.
      *
-     * @param  string  $key
+     * @param  string  $offset
      *
      * @return bool
      */
-    public function offsetExists($key)
+    public function offsetExists(mixed $offset) : bool
     {
-        return $this->bound($key);
+        return $this->bound($offset);
     }
 
     /**
      * Get the value at a given offset.
      *
-     * @param  string  $key
+     * @param  string  $offset
      *
      * @return mixed
      */
-    public function offsetGet($key)
+    public function offsetGet(mixed $offset) : mixed
     {
-        return $this->make($key);
+        return $this->make($offset);
     }
 
     /**
      * Set the value at a given offset.
      *
-     * @param  string  $key
+     * @param  string  $offset
      * @param  mixed  $value
      *
      * @return void
      */
-    public function offsetSet($key, $value)
+    public function offsetSet(mixed $offset, mixed $value) : void
     {
         $this->bind(
-            $key,
+            $offset,
             $value instanceof Closure ? $value : function () use ($value) {
                 return $value;
             }
@@ -1287,13 +1288,13 @@ class Container implements \ArrayAccess
     /**
      * Unset the value at a given offset.
      *
-     * @param  string  $key
+     * @param  string  $offset
      *
      * @return void
      */
-    public function offsetUnset($key): void
+    public function offsetUnset(mixed $offset): void
     {
-        unset($this->bindings[$key], $this->instances[$key], $this->resolved[$key]);
+        unset($this->bindings[$offset], $this->instances[$offset], $this->resolved[$offset]);
     }
 
     /**
